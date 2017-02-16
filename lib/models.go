@@ -23,11 +23,12 @@ package lib
 import (
 	"crypto/md5"
 	"encoding/hex"
-	"github.com/pkg/errors"
-	"gopkg.in/guregu/null.v3"
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/pkg/errors"
+	"gopkg.in/guregu/null.v3"
 )
 
 const groupSeparator = "::"

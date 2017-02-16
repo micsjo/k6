@@ -21,9 +21,10 @@
 package main
 
 import (
+	"os"
+
 	log "github.com/Sirupsen/logrus"
 	"gopkg.in/urfave/cli.v1"
-	"os"
 )
 
 func main() {

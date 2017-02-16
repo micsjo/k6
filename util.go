@@ -21,11 +21,12 @@
 package main
 
 import (
+	"os"
+	"time"
+
 	"github.com/ghodss/yaml"
 	"gopkg.in/guregu/null.v3"
 	"gopkg.in/urfave/cli.v1"
-	"os"
-	"time"
 )
 
 func dumpYAML(v interface{}) error {

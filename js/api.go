@@ -21,13 +21,14 @@
 package js
 
 import (
+	"strconv"
+	"sync/atomic"
+	"time"
+
 	log "github.com/Sirupsen/logrus"
 	"github.com/loadimpact/k6/lib/metrics"
 	"github.com/loadimpact/k6/stats"
 	"github.com/robertkrimen/otto"
-	"strconv"
-	"sync/atomic"
-	"time"
 )
 
 type JSAPI struct {

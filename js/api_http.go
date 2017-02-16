@@ -22,14 +22,15 @@ package js
 
 import (
 	"encoding/json"
-	"github.com/loadimpact/k6/lib"
-	"github.com/loadimpact/k6/stats"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptrace"
 	"strconv"
 	"strings"
+
+	"github.com/loadimpact/k6/lib"
+	"github.com/loadimpact/k6/stats"
 )
 
 type HTTPResponse struct {

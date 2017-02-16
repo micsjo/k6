@@ -23,9 +23,10 @@ package js
 import (
 	"context"
 	"errors"
+	"testing"
+
 	"github.com/robertkrimen/otto"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func newSnippetRunner(src string) (*Runner, error) {

@@ -24,16 +24,17 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"os"
+	"os/exec"
+	"path/filepath"
+
 	"github.com/GeertJohan/go.rice"
 	log "github.com/Sirupsen/logrus"
 	"github.com/loadimpact/k6/lib"
 	"github.com/loadimpact/k6/stats"
 	"github.com/pkg/errors"
 	"github.com/robertkrimen/otto"
-	"io/ioutil"
-	"os"
-	"os/exec"
-	"path/filepath"
 )
 
 const wrapper = "(function() { var e = {}; (function(exports) {%s\n})(e); return e; })();"

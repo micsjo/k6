@@ -23,11 +23,12 @@ package json
 import (
 	"context"
 	"encoding/json"
+	"io"
+	"os"
+
 	log "github.com/Sirupsen/logrus"
 	"github.com/loadimpact/k6/lib"
 	"github.com/loadimpact/k6/stats"
-	"io"
-	"os"
 )
 
 type Collector struct {
