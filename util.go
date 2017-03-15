@@ -25,8 +25,13 @@ import (
 	"time"
 
 	"github.com/ghodss/yaml"
+	"github.com/loadimpact/k6/lib"
 	"gopkg.in/guregu/null.v3"
 	"gopkg.in/urfave/cli.v1"
+	"os"
+	"strconv"
+	"strings"
+	"time"
 )
 
 func dumpYAML(v interface{}) error {
@@ -57,4 +62,25 @@ func cliDuration(cc *cli.Context, name string) null.String {
 
 func roundDuration(d, to time.Duration) time.Duration {
 	return d - (d % to)
+}
+
+func ParseStage(s string) (lib.Stage, error) {
+	parts := strings.SplitN(s, ":", 2)
+
+	var stage lib.Stage
+	if parts[0] != "" {
+		d, err := time.ParseDuration(parts[0])
+		if err != nil {
+			return stage, err
+		}
+		stage.Duration = d
+	}
+	if len(parts) > 1 && parts[1] != "" {
+		vus, err := strconv.ParseInt(parts[1], 10, 64)
+		if err != nil {
+			return stage, err
+		}
+		stage.Target = null.IntFrom(vus)
+	}
+	return stage, nil
 }

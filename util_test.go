@@ -18,47 +18,30 @@
  *
  */
 
-package dummy
+package main
 
 import (
-	"context"
-	"sync"
-
-	"github.com/loadimpact/k6/stats"
+	"github.com/loadimpact/k6/lib"
+	"github.com/stretchr/testify/assert"
+	"gopkg.in/guregu/null.v3"
+	"testing"
+	"time"
 )
 
-type Collector struct {
-	Samples []stats.Sample
-	running bool
-
-	lock sync.Mutex
-}
-
-func (c *Collector) Run(ctx context.Context) {
-	c.lock.Lock()
-	c.running = true
-	c.lock.Unlock()
-
-	<-ctx.Done()
-
-	c.lock.Lock()
-	c.running = false
-	c.lock.Unlock()
-}
-
-func (c *Collector) Collect(samples []stats.Sample) {
-	c.lock.Lock()
-	defer c.lock.Unlock()
-
-	if !c.running {
-		panic("attempted to collect while not running")
+func TestParseStage(t *testing.T) {
+	testdata := map[string]lib.Stage{
+		"":        {},
+		":":       {},
+		"10s":     {Duration: 10 * time.Second},
+		"10s:":    {Duration: 10 * time.Second},
+		"10s:100": {Duration: 10 * time.Second, Target: null.IntFrom(100)},
+		":100":    {Target: null.IntFrom(100)},
 	}
-	c.Samples = append(c.Samples, samples...)
-}
-
-func (c *Collector) IsRunning() bool {
-	c.lock.Lock()
-	defer c.lock.Unlock()
-
-	return c.running
+	for s, st := range testdata {
+		t.Run(s, func(t *testing.T) {
+			parsed, err := ParseStage(s)
+			assert.NoError(t, err)
+			assert.Equal(t, st, parsed)
+		})
+	}
 }

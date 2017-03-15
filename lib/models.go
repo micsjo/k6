@@ -23,6 +23,9 @@ package lib
 import (
 	"crypto/md5"
 	"encoding/hex"
+	"encoding/json"
+	"github.com/pkg/errors"
+	"gopkg.in/guregu/null.v3"
 	"strings"
 	"sync"
 	"time"
@@ -35,9 +38,36 @@ const groupSeparator = "::"
 
 var ErrNameContainsGroupSeparator = errors.Errorf("group and check names may not contain '%s'", groupSeparator)
 
+type SourceData struct {
+	Data     []byte
+	Filename string
+}
+
 type Stage struct {
 	Duration time.Duration `json:"duration"`
 	Target   null.Int      `json:"target"`
+}
+
+func (s *Stage) UnmarshalJSON(data []byte) error {
+	var fields struct {
+		Duration string   `json:"duration"`
+		Target   null.Int `json:"target"`
+	}
+	if err := json.Unmarshal(data, &fields); err != nil {
+		return err
+	}
+
+	s.Target = fields.Target
+
+	if fields.Duration != "" {
+		d, err := time.ParseDuration(fields.Duration)
+		if err != nil {
+			return err
+		}
+		s.Duration = d
+	}
+
+	return nil
 }
 
 type Group struct {
