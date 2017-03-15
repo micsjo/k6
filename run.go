@@ -36,6 +36,19 @@ import (
 	"syscall"
 	"time"
 
+	"io"
+	"io/ioutil"
+	"net"
+	"net/url"
+	"os"
+	"os/signal"
+	"regexp"
+	"sort"
+	"strings"
+	"sync"
+	"syscall"
+	"time"
+
 	log "github.com/Sirupsen/logrus"
 	"github.com/fatih/color"
 	"github.com/ghodss/yaml"
@@ -50,18 +63,6 @@ import (
 	"github.com/spf13/afero"
 	"gopkg.in/guregu/null.v3"
 	"gopkg.in/urfave/cli.v1"
-	"io"
-	"io/ioutil"
-	"net"
-	"net/url"
-	"os"
-	"os/signal"
-	"regexp"
-	"sort"
-	"strings"
-	"sync"
-	"syscall"
-	"time"
 )
 
 const (

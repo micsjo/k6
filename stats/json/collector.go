@@ -24,13 +24,13 @@ import (
 	"context"
 	"encoding/json"
 	"io"
-	"os"
+
+	"io"
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/loadimpact/k6/lib"
 	"github.com/loadimpact/k6/stats"
 	"github.com/spf13/afero"
-	"io"
 )
 
 type Collector struct {

@@ -23,9 +23,10 @@ package js
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
-	"os/exec"
+	"path/filepath"
+
+	"os"
 	"path/filepath"
 
 	"github.com/GeertJohan/go.rice"
@@ -35,8 +36,6 @@ import (
 	"github.com/loadimpact/k6/stats"
 	"github.com/robertkrimen/otto"
 	"github.com/spf13/afero"
-	"os"
-	"path/filepath"
 )
 
 const wrapper = "(function() { var e = {}; (function(exports) {%s\n})(e); return e; })();"
