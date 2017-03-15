@@ -23,11 +23,12 @@ package json
 import (
 	"context"
 	"encoding/json"
+	"io"
+
 	log "github.com/Sirupsen/logrus"
 	"github.com/loadimpact/k6/lib"
 	"github.com/loadimpact/k6/stats"
 	"github.com/spf13/afero"
-	"io"
 )
 
 type Collector struct {
@@ -57,6 +58,9 @@ func New(fname string, fs afero.Fs, opts lib.Options) (*Collector, error) {
 		fname:       fname,
 		seenMetrics: t,
 	}, nil
+}
+
+func (c *Collector) Init() {
 }
 
 func (c *Collector) String() string {

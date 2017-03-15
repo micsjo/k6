@@ -22,8 +22,9 @@ package dummy
 
 import (
 	"context"
-	"github.com/loadimpact/k6/stats"
 	"sync"
+
+	"github.com/loadimpact/k6/stats"
 )
 
 type Collector struct {
@@ -31,6 +32,9 @@ type Collector struct {
 	running bool
 
 	lock sync.Mutex
+}
+
+func (c *Collector) Init() {
 }
 
 func (c *Collector) Run(ctx context.Context) {
